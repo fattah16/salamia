@@ -363,13 +363,13 @@
         .step-icon {
             width: 80px;
             height: 80px;
-            background-color: var(--light-gold);
+            background-color:none;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 0 auto 20px;
-            font-size: 2rem;
+            font-size: 4rem;
             color: var(--primary-green);
         }
 
@@ -814,8 +814,8 @@
                         <p>Whether you're wishing someone a blessed Friday, congratulating them on Eid, or offering condolences, Salamia makes it easy to share Islamic greetings that come from the heart.</p>
                     </div>
                     <div class="about-image">
-                        <div style="width: 100%; height: 300px; background-color: var(--light-gold); border-radius: 10px; display: flex; justify-content: center; align-items: center; color: var(--primary-green); font-size: 1.5rem;">
-                            Islamic Geometric Pattern
+                        <div style="width: 100%; height: 300px; background-color: none; border-radius: 10px; display: flex; justify-content: center; align-items: center; color: var(--primary-green); font-size: 6.5rem;">
+                            SALAMIA
                         </div>
                     </div>
                 </div>
@@ -984,7 +984,7 @@
                     </div>
                 </div>
                 <div class="footer-bottom">
-                    <p>&copy; 2023 Salamia. All rights reserved.</p>
+                    <p>&copy; 2025 Salamia. All rights reserved.</p>
                     <p class="arabic">جزاكم الله خيراً</p>
                 </div>
             </div>
@@ -1186,16 +1186,17 @@
             const urlParams = new URLSearchParams(window.location.search);
             const shared = urlParams.get('shared');
             
+
             if (shared === 'true') {
-    showSharedCardView();
-    loadSharedCardData(urlParams);
-} else {
-    // Show loading page first
-    simulateLoading();
-}
-            
-            // Set up event listeners
-            setupEventListeners();
+                // Show shared card view immediately, skip loading page
+                showSharedCardView();
+                loadSharedCardData(urlParams);
+                setupEventListeners();
+            } else {
+                // Show loading page for normal users
+                simulateLoading();
+                setupEventListeners();
+            }
             
             // Initialize card with default values
             updateCard();
@@ -1395,6 +1396,8 @@ function downloadCard() {
         function showSharedCardView() {
             mainWebsite.style.display = 'none';
             sharedCardView.style.display = 'block';
+            var loadingPage = document.getElementById('loading-page');
+            if (loadingPage) loadingPage.style.display = 'none';
         }
 
         // Load data for shared card
