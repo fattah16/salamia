@@ -1,0 +1,150 @@
+
+*{
+  overflow-x: hidden;
+  margin: 0;
+}
+h1{
+  margin: 20px;
+
+}
+p{
+  margin: 20px;
+}
+header{
+  background-color: blue;
+  display: grid;
+  height: 400px;
+  width: 100%;
+  overflow-y: visible;
+  
+
+}
+.nav-bar{
+  display: flex;
+  align-items: center;
+  justify-content:space-evenly;
+  
+}
+.nav-bar ul{
+  display: flex;
+  gap: 20px;
+}
+.nav-bar ul li{
+  list-style: none;
+}
+.nav-bar ul li a{
+  text-decoration: none;
+}
+
+.hero{
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 10px;
+  height: 300px;
+  overflow-y: visible;
+}
+.hero .hero-text{
+  margin: 0 10px;
+  background-color: chocolate;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+
+.hero .hero-form{
+  background-color: yellowgreen;
+  margin-bottom: -100%;
+  padding: 20px;
+  justify-items: center;
+  height: 500px;
+}
+
+.about{
+  background-color: red;
+   align-items: center;
+  justify-content: center;
+  padding: 30px;
+  
+}
+.about p{
+  color: blue;
+ 
+}
+.about .box{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background-color: blueviolet;
+  gap: 30px;
+  padding: 20px;
+}
+.about-card{
+  background-color: blue;
+}
+.sub-about{
+  margin: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+}
+.sub-about-card{
+  margin: 30px;
+  background-color: aliceblue;
+}
+
+
+.cloud{
+  padding: 30px;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  background-color: blue;
+}
+.cloud.button{
+  background-color: black;
+}
+
+.languages{
+  padding: 30px;
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.languages .lang {
+  background-color: blue;
+  display: flex;
+  margin: 20px;
+  gap: 90px;
+  width: 100;
+  
+}
+.lang-card{
+  background-color: bisque;
+}
+
+
+
+footer{
+  background-color: rgb(9, 9, 34);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  color: bisque;
+}
+.footer ul{
+  display: grid;
+}
+.footer li{
+  list-style: none;
+}
+.footer a{
+  text-decoration: none;
+  color: bisque;
+  font-size: 20px;
+
+}
+
+
