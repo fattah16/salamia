@@ -1,150 +1,1466 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>loruki</title>
-  <link rel="stylesheet" href="./index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salamia - Islamic Greeting Cards</title>
+    <meta name="description" content="Create beautiful Islamic greeting cards for Ramadan, Eid, Jummah, and other occasions. Share blessings with family and friends.">
+    <meta property="og:title" content="Salamia - Islamic Greeting Cards">
+    <meta property="og:description" content="Create and share beautiful Islamic greeting cards with authentic Muslim prayers and greetings.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/og-image.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gold: #D4AF37;
+            --primary-green: #0A5F38;
+            --secondary-green: #1A7D4C;
+            --light-gold: #F7E8C0;
+            --light-green: #E8F5E9;
+            --dark-text: #2C3E50;
+            --light-text: #FFFFFF;
+            --gray-bg: #F5F5F5;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-green);
+            overflow-x: hidden;
+        }
+
+        .arabic {
+            font-family: 'Amiri', serif;
+            direction: rtl;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-gold);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-green);
+            color: var(--light-text);
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-green);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-gold {
+            background-color: var(--primary-gold);
+            color: var(--dark-text);
+        }
+
+        .btn-gold:hover {
+            background-color: #C19B2A;
+        }
+
+        /* Loading Page Styles */
+        #loading-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-gold) 0%, #B8860B 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-content {
+            text-align: center;
+            color: var(--light-text);
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo .arabic {
+            font-size: 5rem;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .crescent-moon {
+            width: 100px;
+            height: 100px;
+            background-color: var(--light-text);
+            border-radius: 50%;
+            position: relative;
+            margin: 0 auto 30px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        .crescent-moon::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 90px;
+            height: 90px;
+            background-color: var(--primary-gold);
+            border-radius: 50%;
+        }
+
+        .loading-bar {
+            width: 200px;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .loading-progress {
+            height: 100%;
+            width: 0%;
+            background-color: var(--light-text);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .skip-btn {
+            margin-top: 20px;
+            background: transparent;
+            border: 1px solid var(--light-text);
+            color: var(--light-text);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--light-text);
+            box-shadow: var(--shadow);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            padding: 5px 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo-small {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .logo-small .arabic {
+            font-size: 2rem;
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-text);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-green);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-green);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(10, 95, 56, 0.8), rgba(10, 95, 56, 0.9)), url('assets/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--light-text);
+            padding: 180px 0 100px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero h1 .arabic {
+            font-size: 4rem;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        /* How-to Section */
+        .how-to-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: var(--light-text);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+        }
+
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--light-gold);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: var(--primary-green);
+        }
+
+        .step h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-green);
+        }
+
+        /* Card Generator Section */
+        .card-generator {
+            background-color: var(--gray-bg);
+        }
+
+        .generator-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .generator-controls {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--light-text);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary-green);
+        }
+
+        .control-group select, 
+        .control-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        .template-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .template-option {
+            height: 60px;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .template-option.active {
+            border-color: var(--primary-green);
+        }
+
+        .card-preview {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 3/4;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            text-align: center;
+            color: var(--dark-text);
+        }
+/* Ensure card renders properly for download */
+.card {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+/* Loading state for buttons */
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+        .card-content {
+            z-index: 2;
+            position: relative;
+        }
+
+        .card-occasion {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        .card-message-arabic {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .card-message-english {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .card-sender {
+            margin-top: 20px;
+            font-style: italic;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding-top: 15px;
+            width: 100%;
+        }
+
+        .card-actions {
+            margin-top: 30px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        /* FAQ Section */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            background-color: var(--light-text);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--primary-green);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-green);
+            color: var(--light-text);
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-gold);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: var(--transition);
+            opacity: 0.8;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--light-text);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-gold);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .footer-bottom .arabic {
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Shared Card View */
+        .shared-card-view {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--light-green) 0%, var(--light-gold) 100%);
+        }
+
+        .shared-card-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .create-own-btn {
+            margin-top: 30px;
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 0;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--light-text);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero h1 .arabic {
+                font-size: 3rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section {
+                padding: 60px 0;
+            }
+            
+            .hero {
+                padding: 150px 0 80px;
+            }
+            
+            .card-actions {
+                flex-direction: column;
+            }
+            
+            .logo {
+                font-size: 3rem;
+            }
+            
+            .logo .arabic {
+                font-size: 4rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  
-    <div class="nav-bar">
-      <div class="logo">
-        <i>luruki</i>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="">home</a></li>
-          <li><a href="">features</a></li>
-          <li><a href="">docs</a></li>
-        </ul>
-      </nav>
+    <!-- Loading Page -->
+    <div id="loading-page">
+        <div class="loading-content">
+            <div class="crescent-moon"></div>
+            <div class="logo">
+                Salamia
+                <span class="arabic">سلاميا</span>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress" id="loading-progress"></div>
+            </div>
+            <p>Loading blessings...</p>
+            <button class="btn skip-btn" id="skip-loading">Skip</button>
+        </div>
     </div>
-     
-    <section class="hero">
-      <div class="hero-text">
-        <h1>Easier Development</h1>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-          <br>Accusamus ratione autem minima! Tempore quam consequatur facere obcaecati recusandae ut sint.</p>
-        <button class="btn"> Read More</button>
-      </div>
- 
-      <div class="hero-form">
-        <h1>Reqest a Demo</h1>
-        <div class="name">
-          <input type="text" name="name" placeholder="name">
+
+    <!-- Main Website -->
+    <div id="main-website" style="display: none;">
+        <!-- Header -->
+        <header id="header">
+            <div class="container">
+                <nav class="navbar">
+                    <a href="#home" class="logo-small">Salamia<span class="arabic">سلاميا</span></a>
+                    <button class="mobile-menu-btn" id="mobile-menu-toggle">☰</button>
+                    <ul class="nav-links" id="nav-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#how-to">How to Use</a></li>
+                        <li><a href="#generator">Create Card</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container">
+                <h1>Assalamualaykum
+                    <span class="arabic">السلام عليكم</span>
+                </h1>
+                <p>Create beautiful Islamic greeting cards for Ramadan, Eid, Jummah, and other occasions. Share blessings with family and friends.</p>
+                <a href="#generator" class="btn btn-gold">Create Your Card</a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="section" id="about">
+            <div class="container">
+                <div class="section-title">
+                    <h2>About Salamia</h2>
+                </div>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Spreading Islamic Greetings and Blessings</h3>
+                        <p>Salamia is a platform dedicated to helping Muslims share beautiful Islamic greetings and prayers with their loved ones. In our busy lives, we sometimes forget to express our faith-based well-wishes, but with Salamia, you can create and share meaningful cards in seconds.</p>
+                        <p>Our collection includes authentic Muslim prayers and greetings for various occasions - from Ramadan and Eid to everyday blessings. Each card combines beautiful design with heartfelt messages to help you connect with your community.</p>
+                        <p>Whether you're wishing someone a blessed Friday, congratulating them on Eid, or offering condolences, Salamia makes it easy to share Islamic greetings that come from the heart.</p>
+                    </div>
+                    <div class="about-image">
+                        <div style="width: 100%; height: 300px; background-color: var(--light-gold); border-radius: 10px; display: flex; justify-content: center; align-items: center; color: var(--primary-green); font-size: 1.5rem;">
+                            Islamic Geometric Pattern
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How-to Section -->
+        <section class="section" id="how-to">
+            <div class="container">
+                <div class="section-title">
+                    <h2>How to Use Salamia</h2>
+                </div>
+                <div class="how-to-steps">
+                    <div class="step">
+                        <div class="step-icon">1</div>
+                        <h3>Select Occasion</h3>
+                        <p>Choose from Ramadan, Eid, Jummah, Hajj, Condolence, or General Dua.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">2</div>
+                        <h3>Customize Card</h3>
+                        <p>Add your name, choose a design template, and select a message.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">3</div>
+                        <h3>Generate & Share</h3>
+                        <p>Download your card as an image or share via a unique link.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Card Generator Section -->
+        <section class="section card-generator" id="generator">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Create Your Card</h2>
+                </div>
+                <div class="generator-container">
+                    <div class="generator-controls">
+                        <div class="control-group">
+                            <label for="occasion">Occasion</label>
+                            <select id="occasion">
+                                <option value="ramadan">Ramadan</option>
+                                <option value="eid">Eid</option>
+                                <option value="jummah">Jummah</option>
+                                <option value="hajj">Hajj</option>
+                                <option value="condolence">Condolence</option>
+                                <option value="general">General Dua</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="sender-name">From (Your Name)</label>
+                            <input type="text" id="sender-name" placeholder="Enter your name">
+                        </div>
+                        <div class="control-group">
+                            <label>Card Template</label>
+                            <div class="template-preview">
+                                <div class="template-option active" data-template="1" style="background: linear-gradient(135deg, #0A5F38 0%, #1A7D4C 100%);"></div>
+                                <div class="template-option" data-template="2" style="background: linear-gradient(135deg, #D4AF37 0%, #F7E8C0 100%);"></div>
+                                <div class="template-option" data-template="3" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);"></div>
+                                <div class="template-option" data-template="4" style="background: linear-gradient(135deg, #4B0082 0%, #8A2BE2 100%);"></div>
+                                <div class="template-option" data-template="5" style="background: linear-gradient(135deg, #B22222 0%, #DC143C 100%);"></div>
+                                <div class="template-option" data-template="6" style="background: linear-gradient(135deg, #006400 0%, #228B22 100%);"></div>
+                                <div class="template-option" data-template="7" style="background: linear-gradient(135deg, #191970 0%, #4169E1 100%);"></div>
+                                <div class="template-option" data-template="8" style="background: linear-gradient(135deg, #8B0000 0%, #FF0000 100%);"></div>
+                                <div class="template-option" data-template="9" style="background: linear-gradient(135deg, #2F4F4F 0%, #708090 100%);"></div>
+                                <div class="template-option" data-template="10" style="background: linear-gradient(135deg, #FF8C00 0%, #FFA500 100%);"></div>
+                                <div class="template-option" data-template="11" style="background: linear-gradient(135deg, #800080 0%, #DA70D6 100%);"></div>
+                                <div class="template-option" data-template="12" style="background: linear-gradient(135deg, #008080 0%, #40E0D0 100%);"></div>
+                                <div class="template-option" data-template="13" style="background: linear-gradient(135deg, #FFD700 0%, #FFF8DC 100%);"></div>
+                            </div>
+                        </div>
+                        <button class="btn" id="generate-btn">Generate New Message</button>
+                        <button class="btn btn-gold" id="download-btn">Download Card</button>
+                        <button class="btn" id="share-btn">Share Card</button>
+                    </div>
+                    <div class="card-preview">
+                        <div class="card" id="card-preview">
+                            <div class="card-content">
+                                <div class="card-occasion" id="card-occasion">Ramadan Mubarak</div>
+                                <div class="card-message-arabic" id="card-message-arabic">رمضان مبارك</div>
+                                <div class="card-message-english" id="card-message-english">May Allah accept your fasting and prayers. Ramadan Mubarak!</div>
+                                <div class="card-sender" id="card-sender">From: Salamia User</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="section" id="faq">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Frequently Asked Questions</h2>
+                </div>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">What occasions can I create cards for?<span>+</span></div>
+                        <div class="faq-answer">
+                            <p>You can create cards for Ramadan, Eid, Jummah (Friday), Hajj, condolences, and general duas (prayers). Each occasion has a selection of appropriate Islamic greetings and prayers.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Are the messages authentic Islamic greetings?<span>+</span></div>
+                        <div class="faq-answer">
+                            <p>Yes, all messages are common Islamic prayers and greetings that Muslims use in daily life. They are authentic expressions of faith that are culturally appropriate for each occasion.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Can I customize the cards?<span>+</span></div>
+                        <div class="faq-answer">
+                            <p>Yes, you can choose from 13 different templates, add your name as the sender, and generate different messages until you find one that resonates with you.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">How do I share my card?<span>+</span></div>
+                        <div class="faq-answer">
+                            <p>You can download the card as an image to share on social media or messaging apps, or you can generate a shareable link that opens directly to the card view.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Is Salamia free to use?<span>+</span></div>
+                        <div class="faq-answer">
+                            <p>Yes, Salamia is completely free to use. Our mission is to help spread Islamic greetings and blessings without any cost barriers.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Salamia</h3>
+                        <p>Spreading Islamic greetings and blessings through beautiful digital cards. Share your faith with loved ones.</p>
+                        <div class="social-links">
+                            <a href="#">f</a>
+                            <a href="#">t</a>
+                            <a href="#">i</a>
+                            <a href="#">in</a>
+                        </div>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#how-to">How to Use</a></li>
+                            <li><a href="#generator">Create Card</a></li>
+                            <li><a href="#faq">FAQ</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Occasions</h3>
+                        <ul class="footer-links">
+                            <li><a href="#generator" data-occasion="ramadan">Ramadan</a></li>
+                            <li><a href="#generator" data-occasion="eid">Eid</a></li>
+                            <li><a href="#generator" data-occasion="jummah">Jummah</a></li>
+                            <li><a href="#generator" data-occasion="hajj">Hajj</a></li>
+                            <li><a href="#generator" data-occasion="condolence">Condolence</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2023 Salamia. All rights reserved.</p>
+                    <p class="arabic">جزاكم الله خيراً</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Shared Card View -->
+    <div id="shared-card-view" style="display: none;">
+        <div class="shared-card-view">
+            <div class="shared-card-container">
+                <div class="card" id="shared-card">
+                    <div class="card-content">
+                        <div class="card-occasion" id="shared-occasion">Ramadan Mubarak</div>
+                        <div class="card-message-arabic" id="shared-message-arabic">رمضان مبارك</div>
+                        <div class="card-message-english" id="shared-message-english">May Allah accept your fasting and prayers. Ramadan Mubarak!</div>
+                        <div class="card-sender" id="shared-sender">From: Salamia User</div>
+                    </div>
+                </div>
+                <a href="index.html" class="btn create-own-btn">Create Your Own Card</a>
+                <button class="btn btn-gold" id="shared-download-btn" style="margin-top: 15px;">Download This Card</button>
+            </div>
         </div>
-        <div class="name">
-          <input type="text" name="name" id="name" placeholder="name">
-        </div>
-        <div>
-          <input type="email" name="email" id="email" placeholder="email">
-        </div>
+    </div>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        // Message Database
+        const messages = {
+            ramadan: [
+                {
+                    arabic: "رمضان مبارك",
+                    english: "May Allah accept your fasting and prayers. Ramadan Mubarak!"
+                },
+                {
+                    arabic: "تقبل الله منا ومنكم صالح الأعمال",
+                    english: "May Allah accept from us and from you our good deeds."
+                },
+                {
+                    arabic: "كل عام وأنتم بخير",
+                    english: "May you be well every year."
+                },
+                {
+                    arabic: "أسأل الله أن يبلغنا رمضان ويعيننا على صيامه وقيامه",
+                    english: "I ask Allah to allow us to reach Ramadan and help us in its fasting and prayers."
+                }
+            ],
+            eid: [
+                {
+                    arabic: "عيد مبارك",
+                    english: "Blessed Eid! May Allah accept our good deeds."
+                },
+                {
+                    arabic: "تقبل الله منا ومنكم صالح الأعمال",
+                    english: "May Allah accept from us and from you our good deeds."
+                },
+                {
+                    arabic: "كل عام وأنتم بخير",
+                    english: "May you be well every year."
+                },
+                {
+                    arabic: "عيد سعيد",
+                    english: "Happy Eid! May Allah's blessings be with you."
+                }
+            ],
+            jummah: [
+                {
+                    arabic: "جمعة مباركة",
+                    english: "Blessed Friday! May Allah accept your prayers."
+                },
+                {
+                    arabic: "تقبل الله دعائكم",
+                    english: "May Allah accept your prayers."
+                },
+                {
+                    arabic: "أسأل الله أن يغفر لنا ولوالدينا",
+                    english: "I ask Allah to forgive us and our parents."
+                },
+                {
+                    arabic: "اللهم اغفر لنا ذنوبنا وإسرافنا في أمرنا",
+                    english: "O Allah, forgive us our sins and our excesses."
+                }
+            ],
+            hajj: [
+                {
+                    arabic: "حج مبرور وسعي مشكور",
+                    english: "May you have an accepted Hajj and rewarded effort."
+                },
+                {
+                    arabic: "تقبل الله حجكم",
+                    english: "May Allah accept your Hajj."
+                },
+                {
+                    arabic: "أسأل الله أن يتقبل منكم",
+                    english: "I ask Allah to accept from you."
+                },
+                {
+                    arabic: "رزقكم الله حج بيته الحرام",
+                    english: "May Allah grant you the pilgrimage to His Sacred House."
+                }
+            ],
+            condolence: [
+                {
+                    arabic: "إنا لله وإنا إليه راجعون",
+                    english: "Indeed we belong to Allah, and indeed to Him we will return."
+                },
+                {
+                    arabic: "أحسن الله عزاءكم",
+                    english: "May Allah grant you the best consolation."
+                },
+                {
+                    arabic: "غفر الله لميتكم",
+                    english: "May Allah forgive your deceased."
+                },
+                {
+                    arabic: "البقاء لله",
+                    english: "Eternal existence is for Allah alone."
+                }
+            ],
+            general: [
+                {
+                    arabic: "السلام عليكم ورحمة الله وبركاته",
+                    english: "Peace, mercy, and blessings of Allah be upon you."
+                },
+                {
+                    arabic: "بارك الله فيكم",
+                    english: "May Allah bless you."
+                },
+                {
+                    arabic: "جزاكم الله خيراً",
+                    english: "May Allah reward you with good."
+                },
+                {
+                    arabic: "وفقكم الله",
+                    english: "May Allah grant you success."
+                }
+            ]
+        };
+
+        // Template colors and styles
+        const templates = {
+            1: { background: "linear-gradient(135deg, #0A5F38 0%, #1A7D4C 100%)", textColor: "#FFFFFF" },
+            2: { background: "linear-gradient(135deg, #D4AF37 0%, #F7E8C0 100%)", textColor: "#2C3E50" },
+            3: { background: "linear-gradient(135deg, #8B4513 0%, #D2691E 100%)", textColor: "#FFFFFF" },
+            4: { background: "linear-gradient(135deg, #4B0082 0%, #8A2BE2 100%)", textColor: "#FFFFFF" },
+            5: { background: "linear-gradient(135deg, #B22222 0%, #DC143C 100%)", textColor: "#FFFFFF" },
+            6: { background: "linear-gradient(135deg, #006400 0%, #228B22 100%)", textColor: "#FFFFFF" },
+            7: { background: "linear-gradient(135deg, #191970 0%, #4169E1 100%)", textColor: "#FFFFFF" },
+            8: { background: "linear-gradient(135deg, #8B0000 0%, #FF0000 100%)", textColor: "#FFFFFF" },
+            9: { background: "linear-gradient(135deg, #2F4F4F 0%, #708090 100%)", textColor: "#FFFFFF" },
+            10: { background: "linear-gradient(135deg, #FF8C00 0%, #FFA500 100%)", textColor: "#2C3E50" },
+            11: { background: "linear-gradient(135deg, #800080 0%, #DA70D6 100%)", textColor: "#FFFFFF" },
+            12: { background: "linear-gradient(135deg, #008080 0%, #40E0D0 100%)", textColor: "#2C3E50" },
+            13: { background: "linear-gradient(135deg, #FFD700 0%, #FFF8DC 100%)", textColor: "#2C3E50" }
+        };
+
+        // DOM Elements
+        const loadingPage = document.getElementById('loading-page');
+        const mainWebsite = document.getElementById('main-website');
+        const sharedCardView = document.getElementById('shared-card-view');
+        const loadingProgress = document.getElementById('loading-progress');
+        const skipLoadingBtn = document.getElementById('skip-loading');
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const navLinks = document.getElementById('nav-links');
+        const header = document.getElementById('header');
+
+        // Card Generator Elements
+        const occasionSelect = document.getElementById('occasion');
+        const senderNameInput = document.getElementById('sender-name');
+        const templateOptions = document.querySelectorAll('.template-option');
+        const generateBtn = document.getElementById('generate-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const shareBtn = document.getElementById('share-btn');
+        const cardPreview = document.getElementById('card-preview');
+        const cardOccasion = document.getElementById('card-occasion');
+        const cardMessageArabic = document.getElementById('card-message-arabic');
+        const cardMessageEnglish = document.getElementById('card-message-english');
+        const cardSender = document.getElementById('card-sender');
+
+        // Shared Card Elements
+        const sharedCard = document.getElementById('shared-card');
+        const sharedOccasion = document.getElementById('shared-occasion');
+        const sharedMessageArabic = document.getElementById('shared-message-arabic');
+        const sharedMessageEnglish = document.getElementById('shared-message-english');
+        const sharedSender = document.getElementById('shared-sender');
+        const sharedDownloadBtn = document.getElementById('shared-download-btn');
+
+        // Current Card State
+        let currentCardState = {
+            occasion: 'ramadan',
+            messageIndex: 0,
+            senderName: 'Salamia User',
+            template: '1'
+        };
+
+        // Initialize the application
+        function init() {
+            // Check if we're in shared card view
+            const urlParams = new URLSearchParams(window.location.search);
+            const shared = urlParams.get('shared');
+            
+            if (shared === 'true') {
+    showSharedCardView();
+    loadSharedCardData(urlParams);
+} else {
+    // Show loading page first
+    simulateLoading();
+}
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Initialize card with default values
+            updateCard();
+        }
+
+        // Simulate loading progress
+       function simulateLoading() {
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += Math.random() * 10;
+        if (progress >= 100) {
+            progress = 100;
+            clearInterval(interval);
+            // Remove the extra setTimeout and opacity transitions
+            loadingPage.style.display = 'none';
+            mainWebsite.style.display = 'block';
+        }
+        loadingProgress.style.width = `${progress}%`;
+    }, 200);
+}
+
+        // Skip loading animation
+        skipLoadingBtn.addEventListener('click', () => {
+    loadingPage.style.display = 'none';
+    mainWebsite.style.display = 'block';
+});
+
+        // Set up all event listeners
+        function setupEventListeners() {
+            // Mobile menu toggle
+            mobileMenuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                });
+            });
+
+            // Header scroll effect
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Card generator event listeners
+            occasionSelect.addEventListener('change', (e) => {
+                currentCardState.occasion = e.target.value;
+                currentCardState.messageIndex = 0;
+                updateCard();
+            });
+
+            senderNameInput.addEventListener('input', (e) => {
+                currentCardState.senderName = e.target.value || 'Salamia User';
+                updateCard();
+            });
+
+            templateOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    templateOptions.forEach(opt => opt.classList.remove('active'));
+                    option.classList.add('active');
+                    currentCardState.template = option.dataset.template;
+                    updateCard();
+                });
+            });
+
+            generateBtn.addEventListener('click', generateNewMessage);
+            downloadBtn.addEventListener('click', downloadCard);
+            shareBtn.addEventListener('click', shareCard);
+            sharedDownloadBtn.addEventListener('click', downloadSharedCard);
+
+            // FAQ accordion
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', () => {
+                    const item = question.parentElement;
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Footer occasion links
+            document.querySelectorAll('.footer-links a[data-occasion]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const occasion = e.target.dataset.occasion;
+                    occasionSelect.value = occasion;
+                    currentCardState.occasion = occasion;
+                    currentCardState.messageIndex = 0;
+                    updateCard();
+                    
+                    // Scroll to generator section
+                    document.getElementById('generator').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        }
+
+        // Generate a new random message for the current occasion
+        function generateNewMessage() {
+            const occasionMessages = messages[currentCardState.occasion];
+            currentCardState.messageIndex = Math.floor(Math.random() * occasionMessages.length);
+            updateCard();
+        }
+
+        // Update the card preview with current state
+        function updateCard() {
+            const occasionMessages = messages[currentCardState.occasion];
+            const message = occasionMessages[currentCardState.messageIndex];
+            const template = templates[currentCardState.template];
+            
+            // Update card content
+            cardOccasion.textContent = getOccasionDisplayName(currentCardState.occasion);
+            cardMessageArabic.textContent = message.arabic;
+            cardMessageEnglish.textContent = message.english;
+            cardSender.textContent = `From: ${currentCardState.senderName}`;
+            
+            // Update card style
+            cardPreview.style.background = template.background;
+            cardPreview.style.color = template.textColor;
+        }
+
+        // Get display name for occasion
+        function getOccasionDisplayName(occasion) {
+            const names = {
+                ramadan: 'Ramadan Mubarak',
+                eid: 'Eid Mubarak',
+                jummah: 'Jummah Mubarak',
+                hajj: 'Hajj Mubarak',
+                condolence: 'Inna Lillahi',
+                general: 'Islamic Greetings'
+            };
+            return names[occasion];
+        }
+// Download card as image
+function downloadCard() {
+    // Show loading state
+    downloadBtn.textContent = 'Downloading...';
+    downloadBtn.disabled = true;
+    
+    // Use html2canvas to capture the card
+    html2canvas(cardPreview, {
+        scale: 2, // Higher quality
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: null
+    }).then(canvas => {
+        // Convert canvas to image URL
+        const imageURL = canvas.toDataURL('image/png');
         
-        <input type="submit" value="send" class="btn">
+        // Create download link
+        const link = document.createElement('a');
+        link.download = `salamia-${currentCardState.occasion}-card.png`;
+        link.href = imageURL;
         
-      </div>
-      
-    </section>
-   
-      
-  
-   <section class="about">
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-        <br>Dignissimos quos exercitationem 
-        <br>dolores perspiciatis consectetur doloremque quidem <br>soluta temporibus repellat suscipit!</p>
-      <div class="box">
-        <div class="about-card">
-          <img src="./ayoade.jpg" alt="">
-          <h1>123455</h1>
-          <p>gdgdhd</p>
-        </div>
-        <div class="about-card">
-          <img src="./ayoade.jpg" alt="images">
-          <h1>123455</h1>
-          <p>gdgdhd</p>
-        </div>
-        <div class="about-card">
-          <img src="./ayoade.jpg" alt="images">
-          <h1>123455</h1>
-          <p>gdgdhd</p>
-        </div>
-      </div>
-      <div class="sub-about">
-        <img src="" alt="images">
-        <div class="sub-about-card">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
-        </div>
-        <div class="sub-about-card">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
-        </div>
-      </div>
-      
-    </section>
-    <section class="cloud">
-      <div class="cloud-text">
-        <h1>extreme cloud 
-          <br>hosting</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, Lorem ipsum dolor sit amet.amet!</p>
-        <button type="button" class="button">read more</button>
+        // Trigger download
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Reset button state
+        downloadBtn.textContent = 'Download Card';
+        downloadBtn.disabled = false;
+        
+    }).catch(error => {
+        console.error('Error generating card image:', error);
+        alert('Sorry, there was an error downloading your card. Please try again.');
+        
+        // Reset button state
+        downloadBtn.textContent = 'Download Card';
+        downloadBtn.disabled = false;
+    });
+}
 
-      </div>
-      <img src="" alt="cloud image">
-    </section>
+        // Share card via URL
+        function shareCard() {
+            const shareUrl = `${window.location.origin}${window.location.pathname}?shared=true&occasion=${currentCardState.occasion}&message=${currentCardState.messageIndex}&sender=${encodeURIComponent(currentCardState.senderName)}&template=${currentCardState.template}`;
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                alert('Shareable link copied to clipboard!');
+            }).catch(() => {
+                // Fallback for older browsers
+                const tempInput = document.createElement('input');
+                tempInput.value = shareUrl;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                alert('Shareable link copied to clipboard!');
+            });
+        }
 
+        // Show shared card view
+        function showSharedCardView() {
+            mainWebsite.style.display = 'none';
+            sharedCardView.style.display = 'block';
+        }
 
-    <section class="la">
-      <h1>supported languages</h1>
-      <div class="lang">
-        <div class="card">
-        <h1>nodejs</h1>
-        <img src="./ayoade.jpg" alt="lang image">
-      </div>
-      <div class="card">
-        <h1>nodejs</h1>
-        <img src="./ayoade.jpg" alt="lang image">
-      </div>
-      <div class="card">
-        <h1>nodejs</h1>
-        <img src="./ayoade.jpg" alt="lang image">
-      </div>
-      <div class="card">
-        <h1>nodejs</h1>
-        <img src="./ayoade.jpg" alt="lang image">
-      </div>
-      <div class="card">
-        <h1>nodejs</h1>
-        <img src="./ayoade.jpg" alt="lang image">
-      </div>
-      <div class="card">
-        <h1>nodejs</h1>
-        <img src="./ayoade.jpg" alt="lang image">
-      </div>
-      <div class="card">
-        <h1>nodejs</h1>
-        <img src="./ayoade.jpg" alt="lang image">
-      </div>
+        // Load data for shared card
+        function loadSharedCardData(urlParams) {
+            const occasion = urlParams.get('occasion') || 'ramadan';
+            const messageIndex = parseInt(urlParams.get('message')) || 0;
+            const sender = decodeURIComponent(urlParams.get('sender') || 'Salamia User');
+            const template = urlParams.get('template') || '1';
+            
+            const occasionMessages = messages[occasion];
+            const message = occasionMessages[messageIndex];
+            const templateStyle = templates[template];
+            
+            // Update shared card content
+            sharedOccasion.textContent = getOccasionDisplayName(occasion);
+            sharedMessageArabic.textContent = message.arabic;
+            sharedMessageEnglish.textContent = message.english;
+            sharedSender.textContent = `From: ${sender}`;
+            
+            // Update shared card style
+            sharedCard.style.background = templateStyle.background;
+            sharedCard.style.color = templateStyle.textColor;
+        }
 
-      </div>
-      
-    </section>
-    <footer class="footer">
-      <p>loruki copyright@2020</p>
-      <div>
-        <ul>
-          <li><a href="">home</a></li>
-           <li><a href="">features</a></li>
-            <li><a href="">docs</a></li>
-        </ul>
-      </div>
-      <div>
-        <i></i>
-        <i></i>
-        <i></i>
-        <i></i>
-      </div>
-    </footer>
-      
-  
+       // Download shared card
+function downloadSharedCard() {
+    // Show loading state
+    sharedDownloadBtn.textContent = 'Downloading...';
+    sharedDownloadBtn.disabled = true;
+    
+    // Use html2canvas to capture the shared card
+    html2canvas(sharedCard, {
+        scale: 2, // Higher quality
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: null
+    }).then(canvas => {
+        // Convert canvas to image URL
+        const imageURL = canvas.toDataURL('image/png');
+        
+        // Create download link
+        const link = document.createElement('a');
+        link.download = `salamia-shared-card.png`;
+        link.href = imageURL;
+        
+        // Trigger download
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Reset button state
+        sharedDownloadBtn.textContent = 'Download This Card';
+        sharedDownloadBtn.disabled = false;
+        
+    }).catch(error => {
+        console.error('Error generating shared card image:', error);
+        alert('Sorry, there was an error downloading this card. Please try again.');
+        
+        // Reset button state
+        sharedDownloadBtn.textContent = 'Download This Card';
+        sharedDownloadBtn.disabled = false;
+    });
+}
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
